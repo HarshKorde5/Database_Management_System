@@ -242,7 +242,7 @@ class DBMS
 
 }
 
-class program538
+class DBMSMain
 {
     public static void main(String arg[])
     {
