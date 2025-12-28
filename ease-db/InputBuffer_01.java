@@ -2,10 +2,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-class InputBuffer {
+class InputBuffer_01 {
 
     public static void printPrompt(){
-        System.out.print("db >> ");
+        System.out.print("ease-db> ");
     }
 
     public static void main(String[] args) {
