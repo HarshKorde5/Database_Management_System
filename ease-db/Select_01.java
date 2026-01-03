@@ -23,29 +23,21 @@ class Statement {
     StatementType type;
 }
 
-class Row{
+class Row {
     int id;
     String name;
     String email;
 }
 
-class Table{
+class Table {
     List<Row> rows = new ArrayList<>();
 }
 
-class Select_01 {
+class Insert_02 {
     static Table table = new Table();
 
     public static void printPrompt() {
         System.out.print("ease-db> ");
-    }
-
-    public static void handleInput(String input) {
-        if (input.equals(".exit")) {
-            System.exit(0);
-        } else {
-            System.out.println("Unrecognized command '" + input + "'.");
-        }
     }
 
     public static MetaCommandResult doMetaCommand(String input) {
@@ -101,19 +93,36 @@ class Select_01 {
                     continue;
             }
 
-            executeStatement(statement,input);
+            executeStatement(statement, input);
         }
+    }
+
+    public static boolean isInsertValid(String[] splitStatement) {
+        if (splitStatement.length < 4) {
+            System.out.println("Syntax Error. Usage: insert <id> <name> <email>");
+            return false;
+        }
+
+        try {
+            Integer.parseInt(splitStatement[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("ID must be a number.");
+            return false;
+        }
+
+        return true;
+
     }
 
     public static void executeStatement(Statement statement, String input) {
         switch (statement.type) {
             case INSERT:
                 String[] statementSplit = input.split(" ", 4);
-                if(statementSplit.length < 2){
-                    System.out.println("Incomplete command.");
-                    break;
+
+                if (!isInsertValid(statementSplit)) {
+                    return;
                 }
-                Row row = new Row();                
+                Row row = new Row();
                 row.id = Integer.parseInt(statementSplit[1]);
                 row.name = statementSplit[2];
                 row.email = statementSplit[3];
